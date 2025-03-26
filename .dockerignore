@@ -41,11 +41,13 @@ README.md
 **/.gradletasknamecache
 **/.nb-gradle
 **/.springBeans
+**/build
 **/dist
 **/gradle-app.setting
 **/nbbuild
 **/nbdist
 **/nbproject/private
+**/target
 *.ctxt
 .mtj.tmp
 .mvn/timing.properties
