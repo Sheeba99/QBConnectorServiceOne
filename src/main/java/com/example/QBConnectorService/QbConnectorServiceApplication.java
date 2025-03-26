@@ -9,5 +9,4 @@ public class QbConnectorServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(QbConnectorServiceApplication.class, args);
 	}
-
 }
