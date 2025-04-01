@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/services/qbwService")
 public class HomeController {
 
     @GetMapping(produces = MediaType.TEXT_XML_VALUE)
