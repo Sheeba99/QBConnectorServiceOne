@@ -21,7 +21,7 @@ public class SoapServiceConfiguration {
     @Bean
     public EndpointImpl userSoapEndpoint() { // ✅ Use EndpointImpl as return type
         EndpointImpl endpoint = new EndpointImpl(bus, userSoapService);
-        endpoint.publish("/qbwService");
+        endpoint.publish("/");
         return endpoint;
     }
 }
