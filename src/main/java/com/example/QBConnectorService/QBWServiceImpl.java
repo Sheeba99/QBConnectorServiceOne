@@ -7,10 +7,8 @@ import java.util.UUID;
 
 //@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
 @WebService(
-        endpointInterface = "com.example.QBConnectorService.QBWService",
-        targetNamespace = "http://developer.intuit.com/",
-        serviceName = "QBWServiceImplService",
-        portName = "QBWServiceImplPort"
+        targetNamespace = "http://QBConnectorService.example.com/",
+        name = "QBWService"
 )
 @Service
 public class QBWServiceImpl implements QBWService {
