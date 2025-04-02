@@ -29,10 +29,11 @@ public class QBWServiceImpl implements QBWService {
     @Override
     public String[] authenticate(String username, String password) {
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
-            return new String[]{TICKET, ""};  // Ticket and empty company file name
+            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
         }
         return new String[]{"", ""}; // Authentication failed
     }
+
 
     @Override
     public String sendRequestXML(String ticket, String companyFileName, String qbXMLCountry, int qbXMLMajorVers, int qbXMLMinorVers) {
