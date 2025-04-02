@@ -1,5 +1,6 @@
 package com.example.QBConnectorService;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
@@ -37,13 +38,29 @@ import java.io.IOException;
 //    }
 //}
 
+//@Controller
+//@RequestMapping("/")
+//public class HomeController {
+//
+//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+//    public void redirectToSoapService(HttpServletResponse response) throws IOException {
+//        response.sendRedirect("/services/qbwService?wsdl"); // Redirects to the SOAP service WSDL.
+//    }
+//}
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public void redirectToSoapService(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/services/qbwService?wsdl"); // Redirects to the SOAP service WSDL.
+    public void redirectToSoapService(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
+            // Forward SOAP requests instead of redirecting
+            request.getRequestDispatcher("/services/qbwService").forward(request, response);
+        } else {
+            // Redirect GET requests to WSDL
+            response.sendRedirect("/services/qbwService?wsdl");
+        }
     }
 }
 
