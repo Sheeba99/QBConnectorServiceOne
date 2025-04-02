@@ -42,8 +42,8 @@ import java.io.IOException;
 public class HomeController {
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String forwardToSoapService(HttpServletRequest request) {
-        return "forward:/services/qbwService";
+    public void redirectToSoapService(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/services/qbwService?wsdl"); // Redirects to the SOAP service WSDL
     }
 }
 
