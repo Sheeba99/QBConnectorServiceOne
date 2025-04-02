@@ -43,7 +43,7 @@ public class HomeController {
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public void redirectToSoapService(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/services/qbwService?wsdl"); // Redirects to the SOAP service WSDL
+        response.sendRedirect("/services/qbwService"); // Redirects to the SOAP service WSDL
     }
 }
 
