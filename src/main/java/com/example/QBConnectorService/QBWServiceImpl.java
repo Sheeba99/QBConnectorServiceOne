@@ -5,7 +5,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
+//@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
+@WebService(
+        endpointInterface = "com.example.QBConnectorService.QBWService",
+        targetNamespace = "http://developer.intuit.com/",
+        serviceName = "QBWServiceImplService",
+        portName = "QBWServiceImplPort"
+)
 @Service
 public class QBWServiceImpl implements QBWService {
 
