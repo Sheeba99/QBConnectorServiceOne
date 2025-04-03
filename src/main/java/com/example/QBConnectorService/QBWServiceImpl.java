@@ -46,8 +46,8 @@ public class QBWServiceImpl implements QBWService {
     @WebMethod(operationName = "authenticate", action = "http://QBConnectorService.example.com/authenticate")
     @WebResult(name = "authenticateResponse", targetNamespace = "http://QBConnectorService.example.com/")
     public String[] authenticate(
-            @WebParam(name = "username", targetNamespace = "http://QBConnectorService.example.com/") String username,
-            @WebParam(name = "password", targetNamespace = "http://QBConnectorService.example.com/") String password) {
+            @WebParam(name = "strUserName", targetNamespace = "http://QBConnectorService.example.com/") String username,
+            @WebParam(name = "strPassword", targetNamespace = "http://QBConnectorService.example.com/") String password) {
 
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
