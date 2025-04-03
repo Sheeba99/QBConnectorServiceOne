@@ -9,7 +9,7 @@ import java.util.UUID;
 
 //@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
 @WebService(
-        targetNamespace = "https://www.codecrafttech.com/",
+        targetNamespace = "http://QBConnectorService.example.com/",
         name = "QBWService"
 )
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
@@ -34,6 +34,7 @@ public class QBWServiceImpl implements QBWService {
     }
 
     @Override
+    @WebMethod(operationName = "authenticate", action = "http://QBConnectorService.example.com/authenticate")
     public String[] authenticate(String username, String password) {
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
