@@ -1,6 +1,8 @@
 package com.example.QBConnectorService;
 
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import org.springframework.stereotype.Service;
@@ -33,15 +35,26 @@ public class QBWServiceImpl implements QBWService {
         }
     }
 
-    @Override
+//    @Override
+//    @WebMethod(operationName = "authenticate", action = "http://QBConnectorService.example.com/authenticate")
+//    public String[] authenticate(String username, String password) {
+//        if ("qbuser".equals(username) && "qbpassword".equals(password)) {
+//            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
+//        }
+//        return new String[]{"", ""}; // Authentication failed
+//    }
     @WebMethod(operationName = "authenticate", action = "http://QBConnectorService.example.com/authenticate")
-    public String[] authenticate(String username, String password) {
+    @WebResult(name = "authenticateResponse", targetNamespace = "http://QBConnectorService.example.com/")
+    public String[] authenticate(
+            @WebParam(name = "username", targetNamespace = "http://QBConnectorService.example.com/") String username,
+            @WebParam(name = "password", targetNamespace = "http://QBConnectorService.example.com/") String password) {
+
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
         }
+
         return new String[]{"", ""}; // Authentication failed
     }
-
 
     @Override
     public String sendRequestXML(String ticket, String companyFileName, String qbXMLCountry, int qbXMLMajorVers, int qbXMLMinorVers) {
