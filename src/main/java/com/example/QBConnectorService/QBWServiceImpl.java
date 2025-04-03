@@ -11,7 +11,7 @@ import java.util.UUID;
 
 //@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
 @WebService(
-        targetNamespace = "http://QBConnectorService.example.com/",
+        targetNamespace = "http://developer.intuit.com/",
         name = "QBWService"
 )
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
