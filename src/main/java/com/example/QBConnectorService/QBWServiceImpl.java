@@ -1,6 +1,8 @@
 package com.example.QBConnectorService;
 
+import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -10,6 +12,7 @@ import java.util.UUID;
         targetNamespace = "http://QBConnectorService.example.com/",
         name = "QBWService"
 )
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 @Service
 public class QBWServiceImpl implements QBWService {
 
@@ -31,6 +34,7 @@ public class QBWServiceImpl implements QBWService {
     }
 
     @Override
+    @WebMethod(operationName = "authenticate", action = "http://QBConnectorService.example.com/authenticate")
     public String[] authenticate(String username, String password) {
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
