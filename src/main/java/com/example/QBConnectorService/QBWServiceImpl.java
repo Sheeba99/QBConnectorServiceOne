@@ -105,4 +105,10 @@ public class QBWServiceImpl implements QBWService {
         return true; // Assume the file exists for now
     }
 
+    @WebMethod(operationName = "clientVersion")
+    @WebResult(name = "clientVersionResponse", targetNamespace = "http://QBConnectorService.example.com/")
+    public String clientVersion(@WebParam(name = "strVersion") String strVersion) {
+        return "1.0"; // Returning a dummy version for compatibility
+    }
+
 }
