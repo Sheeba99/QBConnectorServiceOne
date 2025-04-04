@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 public class SoapServiceConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(SoapServiceConfiguration.class);
@@ -19,9 +22,15 @@ public class SoapServiceConfiguration {
         this.userSoapService = userSoapService;
     }
     @Bean
-    public EndpointImpl userSoapEndpoint() { // ✅ Use EndpointImpl as return type
+    public EndpointImpl userSoapEndpoint() { // Use EndpointImpl as return type
         EndpointImpl endpoint = new EndpointImpl(bus, userSoapService);
         endpoint.publish("/qbwService");
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("endpoint-name", "QBWService");
+        properties.put("service-name", "{http://developer.intuit.com/}QBWService");
+        properties.put("wsdl.service", "{http://developer.intuit.com/}QBWServiceImplService");
+        properties.put("wsdl.port", "{http://developer.intuit.com/}QBWServiceImplPort");
+        endpoint.setProperties(properties);
         return endpoint;
     }
 }

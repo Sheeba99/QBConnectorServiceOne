@@ -4,7 +4,10 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 
-@WebService
+@WebService(
+        targetNamespace = "http://developer.intuit.com/",
+        name = "QBWService"
+)
 public interface QBWService {
 
     @WebMethod
