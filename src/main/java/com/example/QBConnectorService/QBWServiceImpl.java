@@ -11,7 +11,7 @@ import java.util.UUID;
 
 //@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
 @WebService(
-        targetNamespace = "http://developer.intuit.com/",
+        targetNamespace = "http://QBConnectorService.example.com/",
         name = "QBWService"
 )
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
@@ -49,10 +49,10 @@ public class QBWServiceImpl implements QBWService {
 //    }
 
     @WebMethod(operationName = "authenticate")
-    @WebResult(name = "authenticateResponse")  // Remove namespace
+    @WebResult(name = "authenticateResponse", targetNamespace = "") // <-- no namespace
     public String[] authenticate(
-            @WebParam(name = "strUserName") String username,  // Remove namespace
-            @WebParam(name = "strPassword") String password) { // Remove namespace
+            @WebParam(name = "strUserName", targetNamespace = "") String username,   // <-- no namespace
+            @WebParam(name = "strPassword", targetNamespace = "") String password) { // <-- no namespace
 
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};

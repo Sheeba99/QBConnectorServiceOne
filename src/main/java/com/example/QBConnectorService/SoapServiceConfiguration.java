@@ -27,9 +27,9 @@ public class SoapServiceConfiguration {
         endpoint.publish("/qbwService");
         Map<String, Object> properties = new HashMap<>();
         properties.put("endpoint-name", "QBWService");
-        properties.put("service-name", "{http://developer.intuit.com/}QBWService");
-        properties.put("wsdl.service", "{http://developer.intuit.com/}QBWServiceImplService");
-        properties.put("wsdl.port", "{http://developer.intuit.com/}QBWServiceImplPort");
+        properties.put("service-name", "{http://QBConnectorService.example.com/}QBWService");
+        properties.put("wsdl.service", "{http://QBConnectorService.example.com/}QBWServiceImplService");
+        properties.put("wsdl.port", "{http://QBConnectorService.example.com/}QBWServiceImplPort");
         endpoint.setProperties(properties);
         return endpoint;
     }
