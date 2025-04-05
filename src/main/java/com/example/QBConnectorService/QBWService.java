@@ -5,7 +5,7 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 
 @WebService(
-        targetNamespace = "http://developer.intuit.com/",
+//        targetNamespace = "http://developer.intuit.com/",
         name = "QBWService"
 )
 public interface QBWService {
