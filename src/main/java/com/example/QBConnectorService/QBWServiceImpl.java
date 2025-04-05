@@ -10,36 +10,49 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 //@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
-@WebService(
-        targetNamespace = "http://developer.intuit.com/",
-        name = "QBWService"
-)
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
-@Service
-public class QBWServiceImpl implements QBWService {
-
-    private static final String TICKET = UUID.randomUUID().toString();
-
-    @Override
-    public String checkCompanyFile() {
-        // Simulate checking QuickBooks Desktop for a company file
-        String companyFile = "C:\\Users\\sheeba\\Documents\\Codecraft.qbw";
-
-        // Simulated response - Ideally, this would query the remote system
-        boolean fileExists = checkFileOnRemoteSystem(companyFile);
-
-        if (fileExists) {
-            return "Success: QuickBooks company file found!";
-        } else {
-            return "Error: Company file not found.";
-        }
-    }
-
-//    @WebMethod(operationName = "authenticate", action = "http://developer.intuit.com/authenticate")
-//    @WebResult(name = "authenticateResponse", targetNamespace = "http://developer.intuit.com/")
+//@WebService(
+//        targetNamespace = "http://developer.intuit.com/",
+//        name = "QBWService"
+//)
+//@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
+//@Service
+//public class QBWServiceImpl implements QBWService {
+//
+//    private static final String TICKET = UUID.randomUUID().toString();
+//
+//    @Override
+//    public String checkCompanyFile() {
+//        // Simulate checking QuickBooks Desktop for a company file
+//        String companyFile = "C:\\Users\\sheeba\\Documents\\Codecraft.qbw";
+//
+//        // Simulated response - Ideally, this would query the remote system
+//        boolean fileExists = checkFileOnRemoteSystem(companyFile);
+//
+//        if (fileExists) {
+//            return "Success: QuickBooks company file found!";
+//        } else {
+//            return "Error: Company file not found.";
+//        }
+//    }
+//
+////    @WebMethod(operationName = "authenticate", action = "http://developer.intuit.com/authenticate")
+////    @WebResult(name = "authenticateResponse", targetNamespace = "http://developer.intuit.com/")
+////    public String[] authenticate(
+////            @WebParam(name = "strUserName", targetNamespace = "http://developer.intuit.com/") String username,
+////            @WebParam(name = "strPassword", targetNamespace = "http://developer.intuit.com/") String password) {
+////
+////        if ("qbuser".equals(username) && "qbpassword".equals(password)) {
+////            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
+////        }
+////
+////        return new String[]{"", ""}; // Authentication failed
+////    }
+//
+//    @WebMethod(operationName = "authenticate")
+//    @WebResult(name = "authenticateResponse")  // Remove namespace
 //    public String[] authenticate(
-//            @WebParam(name = "strUserName", targetNamespace = "http://developer.intuit.com/") String username,
-//            @WebParam(name = "strPassword", targetNamespace = "http://developer.intuit.com/") String password) {
+//            @WebParam(name = "strUserName") String username,  // Remove namespace
+//            @WebParam(name = "strPassword") String password) { // Remove namespace
 //
 //        if ("qbuser".equals(username) && "qbpassword".equals(password)) {
 //            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
@@ -47,30 +60,104 @@ public class QBWServiceImpl implements QBWService {
 //
 //        return new String[]{"", ""}; // Authentication failed
 //    }
+//
+//    @Override
+//    public String sendRequestXML(String ticket, String companyFileName, String qbXMLCountry, int qbXMLMajorVers, int qbXMLMinorVers) {
+//        String companyFile = "C:\\Users\\sheeba\\Documents\\Codecraft.qbw";
+//        boolean fileExists = checkFileOnRemoteSystem(companyFile);
+//
+//        if (fileExists) {
+//            return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+//                    "<QBXML>\n" +
+//                    "   <QBXMLMsgsRq onError=\"continueOnError\">\n" +
+//                    "       <CompanyQueryRq/>\n" +  // QuickBooks will respond with company info
+//                    "   </QBXMLMsgsRq>\n" +
+//                    "   <FileStatus>\n" +
+//                    "       <Message>File is present: " + companyFile + "</Message>\n" +
+//                    "   </FileStatus>\n" +
+//                    "</QBXML>";
+//        } else {
+//            return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+//                    "<QBXML>\n" +
+//                    "   <FileStatus>\n" +
+//                    "       <Message>File not present</Message>\n" +
+//                    "   </FileStatus>\n" +
+//                    "</QBXML>";
+//        }
+//    }
+//
+//    @Override
+//    public int receiveResponseXML(String ticket, String response, String hresult, String message) {
+//        if (response != null && !response.isEmpty()) {
+//            System.out.println("Received response from QuickBooks: " + response);
+//            return 100; // 100 means done, 0 means more requests
+//        }
+//        return -1; // Error in response
+//    }
+//
+//    @Override
+//    public String connectionError(String ticket, String hresult, String message) {
+//        return "Error: " + message;
+//    }
+//
+//    @Override
+//    public String closeConnection(String ticket) {
+//        return "Connection closed successfully";
+//    }
+//
+//    private boolean checkFileOnRemoteSystem(String filePath) {
+//        // Simulate checking for a file in a remote QuickBooks Desktop system
+//        return true; // Assume the file exists for now
+//    }
+//
+//    @WebMethod(operationName = "clientVersion")
+//    @WebResult(name = "clientVersionResponse", targetNamespace = "http://developer.intuit.com/")
+//    public String clientVersion(@WebParam(name = "strVersion") String strVersion) {
+//        return "1.0"; // Returning a dummy version for compatibility
+//    }
+//
+//}
+@WebService(
+        name = "QBWService",
+        serviceName = "QBWebConnectorSvc",
+        portName = "QBWebConnectorSvcSoap",
+        targetNamespace = ""  // ✅ REMOVE namespace to avoid the conflict
+)
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
+@Service
+public class QBWServiceImpl implements QBWService {
+
+    private static final String TICKET = UUID.randomUUID().toString();
 
     @WebMethod(operationName = "authenticate")
-    @WebResult(name = "authenticateResponse")  // Remove namespace
+    @WebResult(name = "authenticateReturn")  // ✅ Remove namespace
     public String[] authenticate(
-            @WebParam(name = "strUserName") String username,  // Remove namespace
-            @WebParam(name = "strPassword") String password) { // Remove namespace
+            @WebParam(name = "strUserName") String username,  // ✅ Remove namespace
+            @WebParam(name = "strPassword") String password) { // ✅ Remove namespace
 
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
-            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
+            return new String[]{UUID.randomUUID().toString(), "none"}; // "none" if no file path
         }
 
-        return new String[]{"", ""}; // Authentication failed
+        return new String[]{"", ""};
+    }
+
+    @Override
+    public String checkCompanyFile() {
+        String companyFile = "C:\\Users\\sheeba\\Documents\\Codecraft.qbw";
+        return checkFileOnRemoteSystem(companyFile)
+                ? "Success: QuickBooks company file found!"
+                : "Error: Company file not found.";
     }
 
     @Override
     public String sendRequestXML(String ticket, String companyFileName, String qbXMLCountry, int qbXMLMajorVers, int qbXMLMinorVers) {
         String companyFile = "C:\\Users\\sheeba\\Documents\\Codecraft.qbw";
-        boolean fileExists = checkFileOnRemoteSystem(companyFile);
-
-        if (fileExists) {
+        if (checkFileOnRemoteSystem(companyFile)) {
             return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                     "<QBXML>\n" +
                     "   <QBXMLMsgsRq onError=\"continueOnError\">\n" +
-                    "       <CompanyQueryRq/>\n" +  // QuickBooks will respond with company info
+                    "       <CompanyQueryRq/>\n" +
                     "   </QBXMLMsgsRq>\n" +
                     "   <FileStatus>\n" +
                     "       <Message>File is present: " + companyFile + "</Message>\n" +
@@ -90,9 +177,9 @@ public class QBWServiceImpl implements QBWService {
     public int receiveResponseXML(String ticket, String response, String hresult, String message) {
         if (response != null && !response.isEmpty()) {
             System.out.println("Received response from QuickBooks: " + response);
-            return 100; // 100 means done, 0 means more requests
+            return 100;
         }
-        return -1; // Error in response
+        return -1;
     }
 
     @Override
@@ -106,14 +193,12 @@ public class QBWServiceImpl implements QBWService {
     }
 
     private boolean checkFileOnRemoteSystem(String filePath) {
-        // Simulate checking for a file in a remote QuickBooks Desktop system
-        return true; // Assume the file exists for now
+        return true; // Simulate file exists
     }
 
     @WebMethod(operationName = "clientVersion")
-    @WebResult(name = "clientVersionResponse", targetNamespace = "http://developer.intuit.com/")
+    @WebResult(name = "clientVersionReturn")  // ✅ Default name for clientVersion
     public String clientVersion(@WebParam(name = "strVersion") String strVersion) {
-        return "1.0"; // Returning a dummy version for compatibility
+        return "1.0";
     }
-
 }
