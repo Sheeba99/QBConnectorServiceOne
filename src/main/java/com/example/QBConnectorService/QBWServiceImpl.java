@@ -35,19 +35,24 @@ public class QBWServiceImpl implements QBWService {
         }
     }
 
-//    @Override
-//    @WebMethod(operationName = "authenticate", action = "http://QBConnectorService.example.com/authenticate")
-//    public String[] authenticate(String username, String password) {
+//    @WebMethod(operationName = "authenticate", action = "http://developer.intuit.com/authenticate")
+//    @WebResult(name = "authenticateResponse", targetNamespace = "http://developer.intuit.com/")
+//    public String[] authenticate(
+//            @WebParam(name = "strUserName", targetNamespace = "http://developer.intuit.com/") String username,
+//            @WebParam(name = "strPassword", targetNamespace = "http://developer.intuit.com/") String password) {
+//
 //        if ("qbuser".equals(username) && "qbpassword".equals(password)) {
 //            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
 //        }
+//
 //        return new String[]{"", ""}; // Authentication failed
 //    }
-    @WebMethod(operationName = "authenticate", action = "http://developer.intuit.com/authenticate")
-    @WebResult(name = "authenticateResponse", targetNamespace = "http://developer.intuit.com/")
+
+    @WebMethod(operationName = "authenticate")
+    @WebResult(name = "authenticateResponse")  // Remove namespace
     public String[] authenticate(
-            @WebParam(name = "strUserName", targetNamespace = "http://developer.intuit.com/") String username,
-            @WebParam(name = "strPassword", targetNamespace = "http://developer.intuit.com/") String password) {
+            @WebParam(name = "strUserName") String username,  // Remove namespace
+            @WebParam(name = "strPassword") String password) { // Remove namespace
 
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
