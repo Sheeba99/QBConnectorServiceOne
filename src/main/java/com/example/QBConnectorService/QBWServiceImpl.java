@@ -54,6 +54,8 @@ public class QBWServiceImpl implements QBWService {
             @WebParam(name = "strUserName", targetNamespace = "") String username,   // <-- no namespace
             @WebParam(name = "strPassword", targetNamespace = "") String password) { // <-- no namespace
 
+        System.out.println("authenticate() called with username: " + username + ", password: " + password);
+
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
         }
