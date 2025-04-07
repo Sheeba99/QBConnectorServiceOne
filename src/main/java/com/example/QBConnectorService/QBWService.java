@@ -4,14 +4,26 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 
+//@WebService(
+//        targetNamespace = "http://developer.intuit.com/",
+//        name = "QBWService"
+//)
 @WebService(
         targetNamespace = "http://developer.intuit.com/",
-        name = "QBWService"
+        name = "QBWService",
+        serviceName = "QBWService",
+        portName = "QBWServicePort"
 )
 public interface QBWService {
 
     @WebMethod
     String checkCompanyFile();
+
+    @WebMethod
+    String serverVersion();
+
+    @WebMethod
+    String clientVersion(@WebParam(name = "strVersion") String version);
 
     @WebMethod
     String[] authenticate(@WebParam(name = "strUserName", targetNamespace = "") String username,

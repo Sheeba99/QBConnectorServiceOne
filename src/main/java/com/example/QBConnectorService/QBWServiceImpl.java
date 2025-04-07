@@ -10,9 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 //@WebService(endpointInterface = "com.example.QBConnectorService.QBWService")
+//@WebService(
+//        targetNamespace = "http://developer.intuit.com/",
+//        name = "QBWService"
+//)
 @WebService(
+        endpointInterface = "com.example.QBWService",
         targetNamespace = "http://developer.intuit.com/",
-        name = "QBWService"
+        serviceName = "QBWService",
+        portName = "QBWServicePort"
 )
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 @Service
@@ -118,10 +124,15 @@ public class QBWServiceImpl implements QBWService {
         return true; // Assume the file exists for now
     }
 
-    @WebMethod(operationName = "clientVersion")
-    @WebResult(name = "clientVersionResponse", targetNamespace = "http://developer.intuit.com/")
-    public String clientVersion(@WebParam(name = "strVersion") String strVersion) {
-        return "1.0"; // Returning a dummy version for compatibility
+    @Override
+    public String serverVersion() {
+        return "1.0";  // Or whatever version string you want to return
     }
+
+    @Override
+    public String clientVersion(String strVersion) {
+        return "";  // Empty string allows all versions
+    }
+
 
 }
