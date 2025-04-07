@@ -23,7 +23,7 @@ public class SoapServiceConfiguration {
     @Bean
     public EndpointImpl userSoapEndpoint() { // Use EndpointImpl as return type
         EndpointImpl endpoint = new EndpointImpl(bus, userSoapService);
-        endpoint.publish("/");
+        endpoint.publish("/qbwService");
         Map<String, Object> properties = new HashMap<>();
         properties.put("endpoint-name", "QBWService");
         properties.put("service-name", "{http://developer.intuit.com/}QBWService");
