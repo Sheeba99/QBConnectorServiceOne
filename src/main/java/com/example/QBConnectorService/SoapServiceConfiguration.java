@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,12 +26,25 @@ public class SoapServiceConfiguration {
     public EndpointImpl userSoapEndpoint() { // Use EndpointImpl as return type
         EndpointImpl endpoint = new EndpointImpl(bus, userSoapService);
         endpoint.publish("/qbwService");
+//        Map<String, Object> properties = new HashMap<>();
+//        properties.put("endpoint-name", "QBWService");
+//        properties.put("service-name", "{http://developer.intuit.com/}QBWService");
+//        properties.put("wsdl.service", "{http://developer.intuit.com/}QBWServiceImplService");
+//        properties.put("wsdl.port", "{http://developer.intuit.com/}QBWServiceImplPort");
+//        endpoint.setProperties(properties);
+//        return endpoint;
+        // Simplified properties with critical additions
+        // These are the key properties that actually help with QBWC
         Map<String, Object> properties = new HashMap<>();
-        properties.put("endpoint-name", "QBWService");
-        properties.put("service-name", "{http://developer.intuit.com/}QBWService");
-        properties.put("wsdl.service", "{http://developer.intuit.com/}QBWServiceImplService");
-        properties.put("wsdl.port", "{http://developer.intuit.com/}QBWServiceImplPort");
+        properties.put("soap.no.validate.parts", true);  // Most important for namespace issues
+        properties.put("disable.outputstream.optimization", true); // Helps with QBWC quirks
+
+        // For better WSDL control (alternative to setPortName)
+        properties.put("wsdl.port", "{http://developer.intuit.com/}QBWServicePort");
+        properties.put("wsdl.service", "{http://developer.intuit.com/}QBWService");
+
         endpoint.setProperties(properties);
+
         return endpoint;
     }
 }

@@ -49,16 +49,24 @@ public class QBWServiceImpl implements QBWService {
 //    }
 
     @WebMethod(operationName = "authenticate")
-    @WebResult(name = "authenticateResponse", targetNamespace = "")  // Remove namespace
+    @WebResult(name = "authenticateResponse")  // Remove namespace
     public String[] authenticate(
             @WebParam(name = "strUserName", targetNamespace = "") String username,  // Remove namespace
             @WebParam(name = "strPassword", targetNamespace = "") String password) { // Remove namespace
 
+//        if ("qbuser".equals(username) && "qbpassword".equals(password)) {
+//            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
+//        }
+//
+//        return new String[]{"", ""}; // Authentication failed
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
-            return new String[]{UUID.randomUUID().toString(), "qbpassword"};
+            String ticket = UUID.randomUUID().toString();
+            System.out.println("Authentication SUCCESS - Ticket: " + ticket);
+            return new String[]{ticket, ""}; // QBWC expects empty string as second value
         }
 
-        return new String[]{"", ""}; // Authentication failed
+        System.out.println("Authentication FAILED");
+        return new String[]{"", ""}; // Return empty strings for failure
     }
 
     @Override
