@@ -11,6 +11,6 @@ public class CxfServletConfiguration {
     @Bean
     public ServletRegistrationBean<CXFServlet> cxfServlet() {
         // Map the CXF servlet to handle requests at "/services/*"
-        return new ServletRegistrationBean<>(new CXFServlet(), "/services/*");
+        return new ServletRegistrationBean<>(new CXFServlet(), "/*");
     }
 }
