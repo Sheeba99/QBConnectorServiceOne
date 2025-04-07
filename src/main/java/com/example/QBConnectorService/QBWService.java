@@ -14,8 +14,8 @@ public interface QBWService {
     String checkCompanyFile();
 
     @WebMethod
-    String[] authenticate(@WebParam(name = "strUserName") String username,
-                          @WebParam(name = "strPassword") String password);
+    String[] authenticate(@WebParam(name = "strUserName", targetNamespace = "") String username,
+                          @WebParam(name = "strPassword", targetNamespace = "") String password);
 
     @WebMethod
     String sendRequestXML(@WebParam(name = "ticket") String ticket,

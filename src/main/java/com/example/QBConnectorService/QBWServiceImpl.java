@@ -49,10 +49,10 @@ public class QBWServiceImpl implements QBWService {
 //    }
 
     @WebMethod(operationName = "authenticate")
-    @WebResult(name = "authenticateResponse")  // Remove namespace
+    @WebResult(name = "authenticateResponse", targetNamespace = "")  // Remove namespace
     public String[] authenticate(
-            @WebParam(name = "strUserName") String username,  // Remove namespace
-            @WebParam(name = "strPassword") String password) { // Remove namespace
+            @WebParam(name = "strUserName", targetNamespace = "") String username,  // Remove namespace
+            @WebParam(name = "strPassword", targetNamespace = "") String password) { // Remove namespace
 
         if ("qbuser".equals(username) && "qbpassword".equals(password)) {
             return new String[]{UUID.randomUUID().toString(), "qbpassword"};
