@@ -5,7 +5,7 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 
 @WebService(
-        targetNamespace = "http://developer.intuit.com/",
+        targetNamespace = "",
         name = "QBWService"
 )
 public interface QBWService {
@@ -19,22 +19,22 @@ public interface QBWService {
 
     @WebMethod
     String sendRequestXML(@WebParam(name = "ticket") String ticket,
-                          @WebParam(name = "strCompanyFileName") String companyFileName,
-                          @WebParam(name = "qbXMLCountry") String qbXMLCountry,
-                          @WebParam(name = "qbXMLMajorVers") int qbXMLMajorVers,
-                          @WebParam(name = "qbXMLMinorVers") int qbXMLMinorVers);
+                          @WebParam(name = "strCompanyFileName", targetNamespace = "") String companyFileName,
+                          @WebParam(name = "qbXMLCountry", targetNamespace = "") String qbXMLCountry,
+                          @WebParam(name = "qbXMLMajorVers", targetNamespace = "") int qbXMLMajorVers,
+                          @WebParam(name = "qbXMLMinorVers", targetNamespace = "") int qbXMLMinorVers);
 
     @WebMethod
-    int receiveResponseXML(@WebParam(name = "ticket") String ticket,
-                           @WebParam(name = "response") String response,
-                           @WebParam(name = "hresult") String hresult,
-                           @WebParam(name = "message") String message);
+    int receiveResponseXML(@WebParam(name = "ticket", targetNamespace = "") String ticket,
+                           @WebParam(name = "response", targetNamespace = "") String response,
+                           @WebParam(name = "hresult", targetNamespace = "") String hresult,
+                           @WebParam(name = "message", targetNamespace = "") String message);
 
     @WebMethod
-    String connectionError(@WebParam(name = "ticket") String ticket,
-                           @WebParam(name = "hresult") String hresult,
-                           @WebParam(name = "message") String message);
+    String connectionError(@WebParam(name = "ticket", targetNamespace = "") String ticket,
+                           @WebParam(name = "hresult", targetNamespace = "") String hresult,
+                           @WebParam(name = "message", targetNamespace = "") String message);
 
     @WebMethod
-    String closeConnection(@WebParam(name = "ticket") String ticket);
+    String closeConnection(@WebParam(name = "ticket", targetNamespace = "") String ticket);
 }
